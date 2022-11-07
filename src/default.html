@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bé tập tính</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./default.css">
+</head>
+
+<body>
+    <div class="main m-5">
+        <div class="header mb-5 ">
+            <h1 class="">Bé tập tính</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-12 col-12">
+                <div class="row mb-3">
+                    <form action="">
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-3" for="first-value">Số thứ nhất</label>
+                        <input class="col-lg-4 col-md-6 col-sm-6 col-6" type="text" id="first" onblur="checkInput()">
+
+                    </form>
+                </div>
+                <div class="row mb-3">
+                    <form action="">
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-3" for="second-value">Số thứ hai</label>
+                        <input class="col-lg-4 col-md-6 col-sm-6 col-6" type="text" id="second" onblur="checkInput()">
+                    </form>
+                </div>
+                <div class="row mb-3">
+                    <form action="">
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-3" for="result">Kết quả</label>
+                        <input class="col-lg-4 col-md-6 col-sm-6 col-6" type="text" id="result" readonly>
+                        <input class="ms-2 col-lg-1 col-md-2 col-sm-1 col-2" type="submit" value="Tính"
+                            onclick="calculate(event)">
+                    </form>
+                </div>
+                <div class="row mb-3" id="notice">
+                    <span class="col-lg-3 col-md-3">Thông báo</span>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="col-12">
+                    <form action="">
+                        <div>
+                            <input type="radio" id="plus" name="calculation" value="plus">
+                            <label for="plus">Cộng</label>
+                            <input class="ms-3" type="radio" id="subs" name="calculation" value="Subs">
+                            <label for="subs">Trừ</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="multi" name="calculation" value="multi">
+                            <label for="multi">Nhân</label>
+                            <input class="ms-3" type="radio" id="divide" name="calculation" value="divide">
+                            <label for="divide">Chia</label>
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+            const plusCheck = document.getElementById("plus");
+            const subCheck = document.getElementById("subs");
+            const multiCheck = document.getElementById("multi");
+            const divCheck = document.getElementById("divide");
+            const firstV = document.getElementById("first");
+            const secV = document.getElementById("second");
+            const notice = document.getElementById("notice");
+
+            console.log(notice);
+
+            function calculate(event) {
+
+                event.preventDefault();
+                var res;
+
+                if (plusCheck.checked) {
+                    res = parseFloat(firstV.value) + parseFloat(secV.value);
+                }
+                else if (subCheck.checked) {
+                    res = parseFloat(firstV.value) - parseFloat(secV.value);
+                }
+                else if (multiCheck.checked) {
+                    res = parseFloat(firstV.value) * parseFloat(secV.value);
+                }
+                else if (divCheck.checked) {
+                    res = parseFloat(firstV.value) / parseFloat(secV.value);
+                }
+                else if (!plusCheck.checked && !subCheck.checked && !multiCheck.checked && !divCheck.checked) {
+                    notice.innerHTML = '<span class="col-3">Thông báo</span><span class="col-9 text-danger">Chưa chọn phép tính</span>';
+                    return;
+                }
+                if (!res) {
+                    notice.innerHTML = '<span class="col-3">Thông báo</span><span class="col-9 text-danger">Chưa điền đủ số để tính</span>';
+                    return;
+                }
+                document.getElementById("result").value = res;
+                notice.innerHTML = '<span class="col-3">Thông báo</span>';
+            }
+
+            function checkInput() {
+                if (!parseFloat(firstV.value) && firstV.value.length > 0) {
+                    notice.innerHTML = '<span class="col-3">Thông báo</span><span class="col-9 text-danger">Gía trị ở ô <span class="fst-italic">Số thứ nhất </span>không phải số</span>';
+
+                }
+                else if (!parseFloat(secV.value) && secV.value.length > 0) {
+                    notice.innerHTML = '<span class="col-3">Thông báo</span><span class="col-9 text-danger">Gía trị ở ô <span class="fst-italic">Số thứ hai </span>không phải số</span>';
+
+                }
+                else
+                    notice.innerHTML = '<span class="col-3">Thông báo</span>';
+            }
+        </script>
+</body>
+
+</html>
